@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
             {
                 countScoreState = false;
                 score++;
-                Debug.Log(score);
+                // Debug.Log(score);
             }
         }
 
@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
     
     void OnCollisionEnter2D(Collision2D col)
     {
-         if (col.gameObject.CompareTag("Ground") || col.gameObject.CompareTag("Obstacle"))
+         if (col.gameObject.CompareTag("Ground") || col.gameObject.CompareTag("Obstacle") || col.gameObject.CompareTag("GroundObstacle"))
         {
             onGroundState = true; // back on ground
             marioAnimator.SetBool("onGround", onGroundState);

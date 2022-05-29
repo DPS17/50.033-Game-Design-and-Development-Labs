@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6036786550866163590}
   - component: {fileID: 6036786550866163593}
   - component: {fileID: 6036786550866163588}
+  - component: {fileID: 9198011799089621912}
   m_Layer: 6
   m_Name: EdgeDetector
   m_TagString: Untagged
@@ -150,6 +151,23 @@ SpringJoint2D:
   m_Distance: 0.005
   m_DampingRatio: 1
   m_Frequency: 3
+--- !u!114 &9198011799089621912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6036786550866163595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f976749cd73d7346bee2dfa6c5c37ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidBody: {fileID: 6036786550866163593}
+  springJoint: {fileID: 6036786550866163588}
+  consummablePrefab: {fileID: 3901808026893945330, guid: fdc55349cdf73dc4ab9f3b7e2997f3a5, type: 3}
+  spriteRenderer: {fileID: 6036786550866163591}
+  usedQuestionBox: {fileID: 21300054, guid: 855dc7396df3c4e49ac4d21234eac5e1, type: 3}
 --- !u!1 &6036786551098084516
 GameObject:
   m_ObjectHideFlags: 0
