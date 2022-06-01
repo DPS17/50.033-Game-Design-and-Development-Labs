@@ -17,6 +17,8 @@ public class MushroomController : MonoBehaviour
     {
         mushroomBody = GetComponent<Rigidbody2D>();
         mushroomBody.AddForce(Vector2.up  *  5, ForceMode2D.Impulse);
+        moveRight = Random.Range(0,2)*2-1;
+        Debug.Log(moveRight);
         ComputeVelocity();
 
     }
