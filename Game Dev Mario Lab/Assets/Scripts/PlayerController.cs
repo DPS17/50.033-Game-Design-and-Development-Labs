@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
 
     private  Animator marioAnimator;
     private  AudioSource marioAudio;
+    private ParticleSystem dustCloud;
 
         
     // Start is called before the first frame update
@@ -36,7 +37,7 @@ public class PlayerController : MonoBehaviour
         marioSprite = GetComponent<SpriteRenderer>();
         marioAnimator  =  GetComponent<Animator>();
         marioAudio  =  GetComponent<AudioSource>();
-
+        dustCloud = GetComponentInChildren<ParticleSystem>();
         // restartButton = GameObject.Find("restartButton");
         // restartButton.SetActive(false);
     }
@@ -63,7 +64,8 @@ public class PlayerController : MonoBehaviour
         }
 
         // when jumping, and Gomba is near Mario and we haven't registered our score
-        if (!onGroundState && countScoreState)
+        if (!onGroundState)
+        // && countScoreState)
         {
             if (Mathf.Abs(transform.position.x - enemyLocation.position.x) < 0.5f)
             {
@@ -97,19 +99,21 @@ public class PlayerController : MonoBehaviour
         onGroundState = false;
         marioAnimator.SetBool("onGround", onGroundState);
 
-        countScoreState = true; //check if Gomba is underneath
+        // countScoreState = true; //check if Gomba is underneath
       }
     }
     
     void OnCollisionEnter2D(Collision2D col)
     {
          if (col.gameObject.CompareTag("Ground") || col.gameObject.CompareTag("Obstacle") || col.gameObject.CompareTag("GroundObstacle"))
-        {
+        {   
+            if (!onGroundState){
+                dustCloud.Play();
+            }
             onGroundState = true; // back on ground
             marioAnimator.SetBool("onGround", onGroundState);
-
-            countScoreState = false; // reset score state
-            scoreText.text = "Score: " + score.ToString();
+            // countScoreState = false; // reset score state
+            // scoreText.text = "Score: " + score.ToString();
         };
     }
 
