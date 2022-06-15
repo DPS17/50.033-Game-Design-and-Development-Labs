@@ -8,6 +8,8 @@ public  class CentralManager : MonoBehaviour
 	public  GameObject gameManagerObject;
 	private  GameManager gameManager;
 	public  static  CentralManager centralManagerInstance;
+    public  GameObject powerupManagerObject;
+    private  PowerUpManager powerUpManager;
 	
 	void  Awake(){
 		centralManagerInstance  =  this;
@@ -16,9 +18,30 @@ public  class CentralManager : MonoBehaviour
 	void  Start()
 	{
 		gameManager  =  gameManagerObject.GetComponent<GameManager>();
+        powerUpManager  =  powerupManagerObject.GetComponent<PowerUpManager>();
+
 	}
 
 	public  void  increaseScore(){
 		gameManager.increaseScore();
 	}
+    public  void  damagePlayer(){
+	    gameManager.damagePlayer();
+    }
+
+    public  void  killEnemy(){
+        gameManager.killEnemy();
+    }
+    public  void  collectCoin(){
+        gameManager.collectCoin();
+    }
+
+    public  void  consumePowerup(KeyCode k, GameObject g){
+        powerUpManager.consumePowerup(k,g);
+    }
+
+    public  void  addPowerup(Texture t, int i, ConsumableInterface c){
+        powerUpManager.addPowerup(t, i, c);
+    }
+    
 }

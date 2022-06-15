@@ -32,7 +32,7 @@ public  class GameConstants : ScriptableObject
     // for testing
     public  int testValue;
 
-    public float maxOffset = 5.0f;
+    public float maxOffset = 3.0f;
     public float enemyPatroltime = 2.0f;
-    public int groundSurface = -1;
+    public float groundSurface = -0.5f;
 }

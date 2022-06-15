@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
 {
     public float speed;
     private Rigidbody2D marioBody;
+    private BoxCollider2D marioCollider;
+
     public float maxSpeed = 10;
     public float upSpeed = 10;
     private bool onGroundState = true;
@@ -34,10 +36,12 @@ public class PlayerController : MonoBehaviour
         // Set to be 30 FPS
         Application.targetFrameRate =  30;
         marioBody = GetComponent<Rigidbody2D>();
+        marioCollider = GetComponent<BoxCollider2D>();
         marioSprite = GetComponent<SpriteRenderer>();
         marioAnimator  =  GetComponent<Animator>();
         marioAudio  =  GetComponent<AudioSource>();
         dustCloud = GetComponentInChildren<ParticleSystem>();
+        GameManager.OnPlayerDeath  +=  PlayerDiesSequence;
         // restartButton = GameObject.Find("restartButton");
         // restartButton.SetActive(false);
     }
@@ -63,17 +67,25 @@ public class PlayerController : MonoBehaviour
             } 
         }
 
-        // when jumping, and Gomba is near Mario and we haven't registered our score
-        if (!onGroundState)
-        // && countScoreState)
-        {
-            if (Mathf.Abs(transform.position.x - enemyLocation.position.x) < 0.5f)
-            {
-                countScoreState = false;
-                score++;
-                // Debug.Log(score);
-            }
+        if (Input.GetKeyDown("z")){
+            CentralManager.centralManagerInstance.consumePowerup(KeyCode.Z,this.gameObject);
         }
+
+        if (Input.GetKeyDown("x")){
+            CentralManager.centralManagerInstance.consumePowerup(KeyCode.X,this.gameObject);
+        }
+
+        // // when jumping, and Gomba is near Mario and we haven't registered our score
+        // if (!onGroundState)
+        // // && countScoreState)
+        // {
+        //     if (Mathf.Abs(transform.position.x - enemyLocation.position.x) < 0.5f)
+        //     {
+        //         countScoreState = false;
+        //         score++;
+        //         // Debug.Log(score);
+        //     }
+        // }
 
         marioAnimator.SetFloat("xSpeed", Mathf.Abs(marioBody.velocity.x));
 
@@ -132,5 +144,16 @@ public class PlayerController : MonoBehaviour
         marioAudio.PlayOneShot(marioAudio.clip);
 
         // }
+    }
+
+    void  PlayerDiesSequence(){
+        // Mario dies
+        Debug.Log("Mario dies");
+        // do whatever you want here, animate etc
+        // ...
+        marioBody.AddForce(Vector2.up  *  50, ForceMode2D.Impulse);
+        marioCollider.enabled = false;
+        onGroundState = false;
+        marioAnimator.SetBool("onGround", onGroundState);
     }
 }

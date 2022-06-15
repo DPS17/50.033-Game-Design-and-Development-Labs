@@ -32,7 +32,9 @@ public class ObjectPooler : MonoBehaviour
                 GameObject pickup = (GameObject)Instantiate(item.prefab);
                 pickup.SetActive(false);
                 pickup.transform.parent  =  this.transform;
-                pooledObjects.Add(new  ExistingPoolItem(pickup, item.type));
+                // pooledObjects.Add(new  ExistingPoolItem(pickup, item.type));
+                ExistingPoolItem e =  new  ExistingPoolItem(pickup, item.type);
+			    pooledObjects.Add(e);
             }
         }
     }

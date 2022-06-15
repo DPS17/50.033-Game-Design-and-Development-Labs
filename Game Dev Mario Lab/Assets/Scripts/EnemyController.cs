@@ -9,10 +9,17 @@ public  class EnemyController : MonoBehaviour
 	private  float originalX;
 	private  Vector2 velocity;
 	private  Rigidbody2D enemyBody;
-	
+    private SpriteRenderer enemySprite;
+	private bool playerDead = false;
+    private bool flipping = false;
+
 	void  Start()
 	{
 		enemyBody  =  GetComponent<Rigidbody2D>();
+        enemySprite = GetComponent<SpriteRenderer>();
+
+        // subscribe to player event
+        GameManager.OnPlayerDeath  +=  EnemyRejoice;
 		
 		// get the starting position
 		originalX  =  transform.position.x;
@@ -36,18 +43,47 @@ public  class EnemyController : MonoBehaviour
 
 	void  Update()
 	{
-		if (Mathf.Abs(enemyBody.position.x  -  originalX) <  gameConstants.maxOffset)
-		{// move goomba
-			MoveEnemy();
-		}
-		else
-		{
-			// change direction
-			moveRight  *=  -1;
-			ComputeVelocity();
-			MoveEnemy();
-		}
+        Debug.Log(flipping);
+        Debug.Log(playerDead);
+
+        if (playerDead){
+            Debug.Log(flipping);
+            if (!flipping){
+                // Don't move, just flip
+                StartCoroutine(flipEnemy());
+            }
+        }
+        else{
+            if (Mathf.Abs(enemyBody.position.x  -  originalX) <  gameConstants.maxOffset)
+            {// move goomba
+                MoveEnemy();
+            }
+            else
+            {
+                // change direction
+                moveRight  *=  -1;
+                ComputeVelocity();
+                MoveEnemy();
+            }
+        }
 	}
+
+    // animation when player is dead
+    void  EnemyRejoice(){
+        Debug.Log("Enemy killed Mario");
+        // do whatever you want here, animate etc
+        // ...
+        playerDead = true;
+        StartCoroutine(flipEnemy());
+    }
+
+    private IEnumerator flipEnemy()
+    {   
+        flipping = true;
+        enemySprite.flipX = !enemySprite.flipX;
+        yield return new WaitForSeconds(0.5f);
+        flipping = false;
+    }
 
     void  OnTriggerEnter2D(Collider2D other){
 		// check if it collides with Mario
@@ -56,9 +92,11 @@ public  class EnemyController : MonoBehaviour
 			float yoffset = (other.transform.position.y  -  this.transform.position.y);
 			if (yoffset  >  0.75f){
 				KillSelf();
+                CentralManager.centralManagerInstance.killEnemy();
 			}
 			else{
-				// hurt player, implement later
+				// hurt player
+			    CentralManager.centralManagerInstance.damagePlayer();
 			}
 		}
 	}
