@@ -37,10 +37,10 @@ public class MenuController : MonoBehaviour
     //     }
     // }
 
-    // public void RestartButtonClicked()
-    // {
-    //     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    //     // Debug.Log("Restart working");
-    // }
+    public void RestartButtonClicked()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // Debug.Log("Restart working");
+    }
 
 }
