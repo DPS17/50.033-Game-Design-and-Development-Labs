@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public float upSpeed = 10;
     private bool onGroundState = true;
 
-     private SpriteRenderer marioSprite;
+    private SpriteRenderer marioSprite;
     private bool faceRightState = true;
 
     public Transform enemyLocation;
@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("Collided with Gomba!");
-            Time.timeScale = 0.0f;
+            // Time.timeScale = 0.0f;
             // restartButton.SetActive(true);
         }
     }
