@@ -11,7 +11,7 @@ public class MushroomController : MonoBehaviour
     private Vector2 velocity;
 
     private bool collected = false;
-    private bool enlarge = false;
+    // private bool enlarge = false;
     // private Vector3 targetScale = new Vector3(0.1f, 0.1f, 0.1f);
     // private float enlargeSpeed = 0.1f;
     private SpriteRenderer mushroomSprite;

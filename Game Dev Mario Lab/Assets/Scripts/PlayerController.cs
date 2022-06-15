@@ -20,10 +20,10 @@ public class PlayerController : MonoBehaviour
 
     // public Transform enemyLocation;
     // public Text scoreText;
-    private int score = 0;
-    private bool countScoreState = false;
+    // private int score = 0;
+    // private bool countScoreState = false;
 
-    private GameObject restartButton;
+    // private GameObject restartButton;
 
     private  Animator marioAnimator;
     private  AudioSource marioAudio;
@@ -45,8 +45,8 @@ public class PlayerController : MonoBehaviour
         marioAudio  =  GetComponent<AudioSource>();
         dustCloud = GetComponentInChildren<ParticleSystem>();
         GameManager.OnPlayerDeath  +=  PlayerDiesSequence;
-        restartButton = GameObject.Find("restart");
-        restartButton.SetActive(false);
+        // restartButton = GameObject.Find("restart");
+        // restartButton.SetActive(false);
     }
 
     // Update is called once per frame
@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Collided with Gomba!");
             // Time.timeScale = 0.0f;
-            restartButton.SetActive(true);
+            // restartButton.SetActive(true);
         }
     }
 
