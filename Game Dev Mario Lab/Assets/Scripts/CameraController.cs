@@ -13,6 +13,7 @@ public class CameraController : MonoBehaviour
     private  float endX; // largest x-coordinate of the camera
     private  float viewportHalfWidth;
     // Start is called before the first frame update
+
     void Start()
     {
         // get coordinate of the bottomleft of the viewport
@@ -24,6 +25,8 @@ public class CameraController : MonoBehaviour
         // startX  =  this.transform.position.x;
         startX = startLimit.transform.position.x  +  viewportHalfWidth;
         endX  =  endLimit.transform.position.x  -  viewportHalfWidth;
+        GameManager.OnPlayerDeath  +=  StopMusic;
+
     }
 
     // Update is called once per frame
@@ -34,5 +37,9 @@ public class CameraController : MonoBehaviour
         if (desiredX  >  startX  &&  desiredX  <  endX){
             this.transform.position  =  new  Vector3(desiredX, this.transform.position.y, this.transform.position.z);
         }
+    }
+
+    void StopMusic(){
+        GetComponent<AudioSource>().Stop();
     }
 }

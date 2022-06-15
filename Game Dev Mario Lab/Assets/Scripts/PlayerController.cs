@@ -18,16 +18,19 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer marioSprite;
     private bool faceRightState = true;
 
-    public Transform enemyLocation;
-    public Text scoreText;
+    // public Transform enemyLocation;
+    // public Text scoreText;
     private int score = 0;
     private bool countScoreState = false;
 
-    // private GameObject restartButton;
+    private GameObject restartButton;
 
     private  Animator marioAnimator;
     private  AudioSource marioAudio;
     private ParticleSystem dustCloud;
+
+    public AudioClip marioJump;
+    public AudioClip marioDie;
 
         
     // Start is called before the first frame update
@@ -42,8 +45,8 @@ public class PlayerController : MonoBehaviour
         marioAudio  =  GetComponent<AudioSource>();
         dustCloud = GetComponentInChildren<ParticleSystem>();
         GameManager.OnPlayerDeath  +=  PlayerDiesSequence;
-        // restartButton = GameObject.Find("restartButton");
-        // restartButton.SetActive(false);
+        restartButton = GameObject.Find("restart");
+        restartButton.SetActive(false);
     }
 
     // Update is called once per frame
@@ -135,13 +138,13 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Collided with Gomba!");
             // Time.timeScale = 0.0f;
-            // restartButton.SetActive(true);
+            restartButton.SetActive(true);
         }
     }
 
     void  PlayJumpSound(){
         // if (!marioAudio.isPlaying){
-        marioAudio.PlayOneShot(marioAudio.clip);
+        marioAudio.PlayOneShot(marioJump);
 
         // }
     }
@@ -151,9 +154,13 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Mario dies");
         // do whatever you want here, animate etc
         // ...
+        marioAudio.PlayOneShot(marioDie);
         marioBody.AddForce(Vector2.up  *  50, ForceMode2D.Impulse);
+        marioBody.gravityScale = 4;
         marioCollider.enabled = false;
         onGroundState = false;
         marioAnimator.SetBool("onGround", onGroundState);
+        
+
     }
 }

@@ -43,8 +43,6 @@ public  class EnemyController : MonoBehaviour
 
 	void  Update()
 	{
-        Debug.Log(flipping);
-        Debug.Log(playerDead);
 
         if (playerDead){
             Debug.Log(flipping);
