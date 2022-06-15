@@ -16,7 +16,7 @@ public class CoinController : MonoBehaviour
             GetComponent<AudioSource>().Play();
             CentralManager.centralManagerInstance.increaseScore();
             CentralManager.centralManagerInstance.collectCoin();
-            StartCoroutine(ScaleOverTime(0.1f));
+            StartCoroutine(ScaleOverTime(0.3f));
         }
     }
 
@@ -36,7 +36,7 @@ public class CoinController : MonoBehaviour
             shrinkTime += Time.deltaTime;
             yield return null;
         } while (shrinkTime <= time);
-        // Destroy(gameObject);
-        GetComponent<SpriteRenderer>().enabled = false;
+        Destroy(gameObject);
+
     }
 }

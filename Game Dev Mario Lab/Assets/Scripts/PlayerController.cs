@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     public AudioClip marioJump;
     public AudioClip marioDie;
+    public AudioClip marioCollide;
 
         
     // Start is called before the first frame update
@@ -136,7 +137,9 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("Collided with Gomba!");
+            // Debug.Log("Collided with Gomba!");
+            marioAudio.PlayOneShot(marioCollide);
+
             // Time.timeScale = 0.0f;
             // restartButton.SetActive(true);
         }
